@@ -9,114 +9,118 @@
 
 <style>
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 body{
-    font-family:'Poppins',sans-serif;
-    background:#140018;
-    color:#f3e9ff;
-    overflow:hidden;
+font-family:'Poppins',sans-serif;
+background:#140018;
+color:#f3e9ff;
+overflow:hidden;
 }
 
 canvas{
-    position:fixed;
-    top:0;
-    left:0;
-    z-index:-1;
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
 }
 
-/* Layout */
 .container{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
 }
 
 .card{
-    width:100%;
-    max-width:520px;
-    padding:60px 40px;
-    border-radius:24px;
-    background:rgba(255,255,255,0.06);
-    backdrop-filter:blur(25px);
-    text-align:center;
-    animation:fadeIn 1.5s ease;
-    transition:0.6s ease;
+width:100%;
+max-width:520px;
+padding:60px 40px;
+border-radius:24px;
+background:rgba(255,255,255,0.06);
+backdrop-filter:blur(25px);
+text-align:center;
+animation:fadeIn 1.5s ease;
 }
 
-/* Typography */
 h1{
-    font-family:'Playfair Display',serif;
-    font-size:32px;
-    font-weight:600;
-    margin-bottom:10px;
+font-family:'Playfair Display',serif;
+font-size:32px;
+font-weight:600;
+margin-bottom:10px;
 }
 
 .subtitle{
-    font-size:14px;
-    opacity:0.6;
-    letter-spacing:2px;
-    margin-bottom:40px;
+font-size:14px;
+opacity:0.6;
+letter-spacing:2px;
+margin-bottom:30px;
 }
 
 button{
-    padding:12px 28px;
-    border:none;
-    border-radius:30px;
-    background:linear-gradient(135deg,#8e2de2,#c471ed);
-    color:white;
-    font-size:14px;
-    cursor:pointer;
-    transition:0.4s ease;
+padding:12px 28px;
+border:none;
+border-radius:30px;
+background:linear-gradient(135deg,#8e2de2,#c471ed);
+color:white;
+font-size:14px;
+cursor:pointer;
+transition:0.4s ease;
 }
 
 button:hover{
-    transform:scale(1.05);
+transform:scale(1.05);
 }
 
 input{
-    padding:10px;
-    border:none;
-    border-radius:25px;
-    text-align:center;
-    width:80%;
-    margin-top:15px;
+padding:10px;
+border:none;
+border-radius:25px;
+text-align:center;
+width:80%;
+margin-top:15px;
 }
 
 .photo{
-    width:200px;
-    height:200px;
-    object-fit:cover;
-    border-radius:18px;
-    margin-top:25px;
+width:200px;
+height:200px;
+object-fit:cover;
+border-radius:18px;
+margin-top:25px;
 }
 
 .hidden{
-    display:none;
+display:none;
 }
 
 .shayari{
-    margin-top:30px;
-    line-height:1.8;
-    font-family:'Playfair Display',serif;
-    font-size:18px;
-    animation:fadeIn 2s ease;
+margin-top:30px;
+line-height:1.8;
+font-family:'Playfair Display',serif;
+font-size:18px;
+animation:fadeIn 2s ease;
 }
 
 .signature{
-    margin-top:20px;
-    font-size:14px;
-    opacity:0.6;
+margin-top:20px;
+font-size:14px;
+opacity:0.6;
+}
+
+#gameArea{
+position:relative;
+height:250px;
+overflow:hidden;
+margin-top:20px;
 }
 
 @keyframes fadeIn{
-    from{opacity:0;transform:translateY(20px);}
-    to{opacity:1;transform:translateY(0);}
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
 }
 </style>
 </head>
@@ -128,24 +132,37 @@ input{
 <div class="container">
 <div class="card">
 
+<!-- PAGE 1 -->
 <div id="page1">
 <h1>Shifa</h1>
 <div class="subtitle">FROM ATUL</div>
 <button onclick="next(2)">Enter</button>
 </div>
 
+<!-- PAGE 2 -->
 <div id="page2" class="hidden">
 <h1>Since 30 May 2022</h1>
 <div class="subtitle" id="days"></div>
 <button onclick="next(3)">Continue</button>
 </div>
 
+<!-- PAGE 3 -->
 <div id="page3" class="hidden">
 <h1>Always You</h1>
 <img src="https://i.ibb.co/MxKRgMxm/Screenshot-20260214-124032.jpg" class="photo">
-<button onclick="next(4)">Private</button>
+<button onclick="startHeartGame()">Private</button>
 </div>
 
+<!-- HEART GAME -->
+<div id="pageGame" class="hidden">
+<h1>Collect My Love</h1>
+<div class="subtitle">Tap 10 hearts 💜</div>
+<div id="score">0 / 10</div>
+<div id="gameArea"></div>
+<div id="gameMessage"></div>
+</div>
+
+<!-- PASSWORD -->
 <div id="page4" class="hidden">
 <h1>Enter Password</h1>
 <input type="password" id="pass" placeholder="••••••••">
@@ -166,6 +183,8 @@ Tum chand jaise toh nahi 🌙 <br>
 </div>
 
 <script>
+
+/* Page Navigation */
 function next(page){
 document.querySelectorAll(".card > div").forEach(d=>d.classList.add("hidden"));
 document.getElementById("page"+page).classList.remove("hidden");
@@ -176,6 +195,52 @@ const start=new Date("May 30, 2022");
 const now=new Date();
 const days=Math.floor((now-start)/(1000*60*60*24));
 document.getElementById("days").innerText=days+" DAYS TOGETHER";
+
+/* Heart Game */
+let heartScore=0;
+let gameInterval;
+
+function startHeartGame(){
+document.querySelectorAll(".card > div").forEach(d=>d.classList.add("hidden"));
+document.getElementById("pageGame").classList.remove("hidden");
+
+heartScore=0;
+document.getElementById("score").innerText="0 / 10";
+document.getElementById("gameArea").innerHTML="";
+document.getElementById("gameMessage").innerHTML="";
+
+gameInterval=setInterval(createHeart,800);
+}
+
+function createHeart(){
+const area=document.getElementById("gameArea");
+const heart=document.createElement("div");
+
+heart.innerHTML="💜";
+heart.style.position="absolute";
+heart.style.left=Math.random()*80+"%";
+heart.style.top="-20px";
+heart.style.fontSize="22px";
+heart.style.cursor="pointer";
+heart.style.transition="top 4s linear";
+
+heart.onclick=function(){
+heart.remove();
+heartScore++;
+document.getElementById("score").innerText=heartScore+" / 10";
+
+if(heartScore>=10){
+clearInterval(gameInterval);
+document.getElementById("gameMessage").innerHTML="<br>💜 You collected my whole heart.";
+setTimeout(()=>next(4),1500);
+}
+};
+
+area.appendChild(heart);
+
+setTimeout(()=>{heart.style.top="260px";},50);
+setTimeout(()=>{heart.remove();},4000);
+}
 
 /* Password */
 function unlock(){
@@ -217,6 +282,7 @@ star.x=Math.random()*canvas.width;
 requestAnimationFrame(draw);
 }
 draw();
+
 </script>
 
 </body>
