@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Shifa 💜</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top, #2b0a3d, #120016);
+    color: #e6ccff;
+    text-align: center;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+section {
+    padding: 80px 20px;
+    min-height: 100vh;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 1.5s ease forwards;
+}
+
+#intro { display: flex; }
+
+h1 {
+    font-size: 42px;
+    color: #d6a4ff;
+    text-shadow: 0 0 25px rgba(214,164,255,0.9);
+}
+
+h2 {
+    color: #c38fff;
+    font-weight: 400;
+}
+
+p {
+    max-width: 550px;
+    line-height: 1.8;
+    color: #f0e1ff;
+}
+
+button {
+    margin-top: 25px;
+    padding: 14px 30px;
+    border: 1px solid #c38fff;
+    border-radius: 30px;
+    background: transparent;
+    color: #e6ccff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background: #c38fff;
+    color: #120016;
+    transform: scale(1.08);
+    box-shadow: 0 0 20px rgba(195,143,255,0.8);
+}
+
+.counter {
+    font-size: 40px;
+    margin-top: 10px;
+    color: #e0b3ff;
+}
+
+.photo {
+    width: 220px;
+    height: 220px;
+    border-radius: 20px;
+    object-fit: cover;
+    margin-top: 20px;
+    box-shadow: 0 0 30px rgba(214,164,255,0.7);
+    transition: 0.4s ease;
+}
+
+.photo:hover {
+    transform: scale(1.07);
+}
+
+#typedText {
+    border-right: 2px solid #e6ccff;
+    white-space: pre-line;
+    overflow: hidden;
+}
+
+input {
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    text-align: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+
+<section id="intro">
+    <h1>Hi Shifa 💜</h1>
+    <h2>From Atul</h2>
+    <button onclick="nextSection('message')">Enter Our Universe ✨</button>
+</section>
+
+<section id="message">
+    <h1>4 Years & Counting 💫</h1>
+    <p id="typedText"></p>
+    <button onclick="nextSection('counter')">Next</button>
+</section>
+
+<section id="counter">
+    <h1>Since 30 May 2022 💜</h1>
+    <div class="counter" id="daysTogether"></div>
+    <button onclick="nextSection('photo')">Next</button>
+</section>
+
+<section id="photo">
+    <h1>The Prettiest Girl Ever ✨</h1>
+    <img src="https://i.ibb.co/MxKRgMxm/Screenshot-20260214-124032.jpg" class="photo">
+    <button onclick="nextSection('secret')">Secret Page 🔐</button>
+</section>
+
+<section id="secret">
+    <h1>Enter Password 💜</h1>
+    <input type="password" id="passInput" placeholder="Password">
+    <br>
+    <button onclick="checkPassword()">Unlock</button>
+    <p id="secretMsg"></p>
+</section>
+
+<script>
+
+function nextSection(id) {
+    document.querySelectorAll("section").forEach(sec => sec.style.display = "none");
+    document.getElementById(id).style.display = "flex";
+}
+
+const text = "I wish I could bunk my school to be with you for some more time 💜";
+let i = 0;
+function typing() {
+    if (i < text.length) {
+        document.getElementById("typedText").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typing, 50);
+    }
+}
+typing();
+
+const startDate = new Date("May 30, 2022");
+const today = new Date();
+const diffTime = Math.abs(today - startDate);
+const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+document.getElementById("daysTogether").innerHTML = diffDays + " Days Together";
+
+function checkPassword() {
+    const pass = document.getElementById("passInput").value;
+    if (pass === "05aug2022") {
+        document.getElementById("secretMsg").innerHTML =
+        "You unlocked my heart again 💜 Forever yours, Atul.";
+    } else {
+        document.getElementById("secretMsg").innerHTML =
+        "Wrong password 😜 Try again!";
+    }
+}
+
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let stars = [];
+for (let i = 0; i < 150; i++) {
+    stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 1.5,
+        speed: Math.random() * 0.5
+    });
+}
+
+function drawStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#d6a4ff";
+    stars.forEach(star => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fill();
+        star.y -= star.speed;
+        if (star.y < 0) {
+            star.y = canvas.height;
+            star.x = Math.random() * canvas.width;
+        }
+    });
+    requestAnimationFrame(drawStars);
+}
+drawStars();
+
+</script>
+
+</body>
+</html>
