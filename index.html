@@ -1,112 +1,122 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Shifa 💜</title>
+<title>For Shifa</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: radial-gradient(circle at top, #2b0a3d, #120016);
-    color: #e6ccff;
-    text-align: center;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
+body{
+    font-family:'Poppins',sans-serif;
+    background:#140018;
+    color:#f3e9ff;
+    overflow:hidden;
 }
 
-section {
-    padding: 80px 20px;
-    min-height: 100vh;
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    animation: fadeIn 1.5s ease forwards;
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
 }
 
-#intro { display: flex; }
-
-h1 {
-    font-size: 42px;
-    color: #d6a4ff;
-    text-shadow: 0 0 25px rgba(214,164,255,0.9);
+/* Layout */
+.container{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
 }
 
-h2 {
-    color: #c38fff;
-    font-weight: 400;
+.card{
+    width:100%;
+    max-width:520px;
+    padding:60px 40px;
+    border-radius:24px;
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(25px);
+    text-align:center;
+    animation:fadeIn 1.5s ease;
+    transition:0.6s ease;
 }
 
-p {
-    max-width: 550px;
-    line-height: 1.8;
-    color: #f0e1ff;
+/* Typography */
+h1{
+    font-family:'Playfair Display',serif;
+    font-size:32px;
+    font-weight:600;
+    margin-bottom:10px;
 }
 
-button {
-    margin-top: 25px;
-    padding: 14px 30px;
-    border: 1px solid #c38fff;
-    border-radius: 30px;
-    background: transparent;
-    color: #e6ccff;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s ease;
+.subtitle{
+    font-size:14px;
+    opacity:0.6;
+    letter-spacing:2px;
+    margin-bottom:40px;
 }
 
-button:hover {
-    background: #c38fff;
-    color: #120016;
-    transform: scale(1.08);
-    box-shadow: 0 0 20px rgba(195,143,255,0.8);
+button{
+    padding:12px 28px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(135deg,#8e2de2,#c471ed);
+    color:white;
+    font-size:14px;
+    cursor:pointer;
+    transition:0.4s ease;
 }
 
-.counter {
-    font-size: 40px;
-    margin-top: 10px;
-    color: #e0b3ff;
+button:hover{
+    transform:scale(1.05);
 }
 
-.photo {
-    width: 220px;
-    height: 220px;
-    border-radius: 20px;
-    object-fit: cover;
-    margin-top: 20px;
-    box-shadow: 0 0 30px rgba(214,164,255,0.7);
-    transition: 0.4s ease;
+input{
+    padding:10px;
+    border:none;
+    border-radius:25px;
+    text-align:center;
+    width:80%;
+    margin-top:15px;
 }
 
-.photo:hover {
-    transform: scale(1.07);
+.photo{
+    width:200px;
+    height:200px;
+    object-fit:cover;
+    border-radius:18px;
+    margin-top:25px;
 }
 
-#typedText {
-    border-right: 2px solid #e6ccff;
-    white-space: pre-line;
-    overflow: hidden;
+.hidden{
+    display:none;
 }
 
-input {
-    padding: 10px;
-    border-radius: 20px;
-    border: none;
-    text-align: center;
+.shayari{
+    margin-top:30px;
+    line-height:1.8;
+    font-family:'Playfair Display',serif;
+    font-size:18px;
+    animation:fadeIn 2s ease;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(25px); }
-    to { opacity: 1; transform: translateY(0); }
+.signature{
+    margin-top:20px;
+    font-size:14px;
+    opacity:0.6;
+}
+
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(20px);}
+    to{opacity:1;transform:translateY(0);}
 }
 </style>
 </head>
@@ -115,106 +125,98 @@ input {
 
 <canvas id="stars"></canvas>
 
-<section id="intro">
-    <h1>Hi Shifa 💜</h1>
-    <h2>From Atul</h2>
-    <button onclick="nextSection('message')">Enter Our Universe ✨</button>
-</section>
+<div class="container">
+<div class="card">
 
-<section id="message">
-    <h1>4 Years & Counting 💫</h1>
-    <p id="typedText"></p>
-    <button onclick="nextSection('counter')">Next</button>
-</section>
+<div id="page1">
+<h1>Shifa</h1>
+<div class="subtitle">FROM ATUL</div>
+<button onclick="next(2)">Enter</button>
+</div>
 
-<section id="counter">
-    <h1>Since 30 May 2022 💜</h1>
-    <div class="counter" id="daysTogether"></div>
-    <button onclick="nextSection('photo')">Next</button>
-</section>
+<div id="page2" class="hidden">
+<h1>Since 30 May 2022</h1>
+<div class="subtitle" id="days"></div>
+<button onclick="next(3)">Continue</button>
+</div>
 
-<section id="photo">
-    <h1>The Prettiest Girl Ever ✨</h1>
-    <img src="https://i.ibb.co/MxKRgMxm/Screenshot-20260214-124032.jpg" class="photo">
-    <button onclick="nextSection('secret')">Secret Page 🔐</button>
-</section>
+<div id="page3" class="hidden">
+<h1>Always You</h1>
+<img src="https://i.ibb.co/MxKRgMxm/Screenshot-20260214-124032.jpg" class="photo">
+<button onclick="next(4)">Private</button>
+</div>
 
-<section id="secret">
-    <h1>Enter Password 💜</h1>
-    <input type="password" id="passInput" placeholder="Password">
-    <br>
-    <button onclick="checkPassword()">Unlock</button>
-    <p id="secretMsg"></p>
-</section>
+<div id="page4" class="hidden">
+<h1>Enter Password</h1>
+<input type="password" id="pass" placeholder="••••••••">
+<br>
+<button onclick="unlock()">Unlock</button>
+
+<div id="shayariBlock" class="hidden shayari">
+Tum itni achi kyu lagne lagi ho <br>
+Koi itna acha kaise ho skta hai.. <br><br>
+Tum chand jaise toh nahi 🌙 <br>
+<strong>Haan chand tum jaisa ho skta hai 💜</strong>
+<div class="signature">– Atul</div>
+</div>
+
+</div>
+
+</div>
+</div>
 
 <script>
-
-function nextSection(id) {
-    document.querySelectorAll("section").forEach(sec => sec.style.display = "none");
-    document.getElementById(id).style.display = "flex";
+function next(page){
+document.querySelectorAll(".card > div").forEach(d=>d.classList.add("hidden"));
+document.getElementById("page"+page).classList.remove("hidden");
 }
 
-const text = "I wish I could bunk my school to be with you for some more time 💜";
-let i = 0;
-function typing() {
-    if (i < text.length) {
-        document.getElementById("typedText").innerHTML += text.charAt(i);
-        i++;
-        setTimeout(typing, 50);
-    }
+/* Days Counter */
+const start=new Date("May 30, 2022");
+const now=new Date();
+const days=Math.floor((now-start)/(1000*60*60*24));
+document.getElementById("days").innerText=days+" DAYS TOGETHER";
+
+/* Password */
+function unlock(){
+if(document.getElementById("pass").value==="05aug2022"){
+document.getElementById("shayariBlock").classList.remove("hidden");
 }
-typing();
-
-const startDate = new Date("May 30, 2022");
-const today = new Date();
-const diffTime = Math.abs(today - startDate);
-const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-document.getElementById("daysTogether").innerHTML = diffDays + " Days Together";
-
-function checkPassword() {
-    const pass = document.getElementById("passInput").value;
-    if (pass === "05aug2022") {
-        document.getElementById("secretMsg").innerHTML =
-        "You unlocked my heart again 💜 Forever yours, Atul.";
-    } else {
-        document.getElementById("secretMsg").innerHTML =
-        "Wrong password 😜 Try again!";
-    }
 }
 
-const canvas = document.getElementById("stars");
-const ctx = canvas.getContext("2d");
+/* Soft Star Background */
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
 
-let stars = [];
-for (let i = 0; i < 150; i++) {
-    stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: Math.random() * 1.5,
-        speed: Math.random() * 0.5
-    });
+let stars=[];
+for(let i=0;i<100;i++){
+stars.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*1.2,
+s:Math.random()*0.2
+});
 }
 
-function drawStars() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "#d6a4ff";
-    stars.forEach(star => {
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fill();
-        star.y -= star.speed;
-        if (star.y < 0) {
-            star.y = canvas.height;
-            star.x = Math.random() * canvas.width;
-        }
-    });
-    requestAnimationFrame(drawStars);
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="#ffffff";
+stars.forEach(star=>{
+ctx.beginPath();
+ctx.arc(star.x,star.y,star.r,0,Math.PI*2);
+ctx.fill();
+star.y-=star.s;
+if(star.y<0){
+star.y=canvas.height;
+star.x=Math.random()*canvas.width;
 }
-drawStars();
-
+});
+requestAnimationFrame(draw);
+}
+draw();
 </script>
 
 </body>
